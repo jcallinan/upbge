@@ -29,12 +29,12 @@
  */
 
  /** \file gameengine/GameLogic/SCA_DelaySensor.cpp
-  *  \ingroup gamelogic
-  */
+ *  \ingroup gamelogic
+ */
 
 #ifdef _MSC_VER
   /* This warning tells us about truncation of __long__ stl-generated names.
-   * It can occasionally cause DevStudio to have internal compiler warnings. */
+  * It can occasionally cause DevStudio to have internal compiler warnings. */
 #  pragma warning( disable:4786 )
 #endif
 
@@ -44,9 +44,9 @@
 #include "SCA_LogicManager.h"
 #include "SCA_EventManager.h"
 
-   /* ------------------------------------------------------------------------- */
-   /* Native functions                                                          */
-   /* ------------------------------------------------------------------------- */
+ /* ------------------------------------------------------------------------- */
+ /* Native functions                                                          */
+ /* ------------------------------------------------------------------------- */
 
 SCA_DelaySensor::SCA_DelaySensor(class SCA_EventManager* eventmgr,
 	SCA_IObject* gameobj,
@@ -121,7 +121,7 @@ bool SCA_DelaySensor::Evaluate()
 
 			if (m_repeatfor > 1) {
 				m_frameCount = -1;
-				m_repeatfor -= 1;
+				m_repeatfor--;
 			}
 		}
 	}
@@ -133,7 +133,7 @@ bool SCA_DelaySensor::Evaluate()
 
 		if (m_repeatfor > 1) {
 			m_frameCount = -1;
-			m_repeatfor -= 1;
+			m_repeatfor--;
 		}
 	}
 	if ((m_reset && m_level) || result != m_lastResult) {
@@ -143,8 +143,6 @@ bool SCA_DelaySensor::Evaluate()
 	m_lastResult = result;
 	return trigger;
 }
-	
-
 
 #ifdef WITH_PYTHON
 

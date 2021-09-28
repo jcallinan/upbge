@@ -48,13 +48,13 @@ class INFO_HT_header(Header):
         if rd.has_multiple_engines:
             layout.prop(rd, "engine", text="")
 
-        layout.separator()
+        # layout.separator()
 
         layout.template_running_jobs()
 
         layout.template_reports_banner()
 
-        row = layout.row(align=True)
+        # row = layout.row(align=1)
 
         if bpy.app.autoexec_fail is True and bpy.app.autoexec_fail_quiet is False:
             row.label("Auto-run disabled", icon='ERROR')
@@ -67,9 +67,11 @@ class INFO_HT_header(Header):
             # include last so text doesn't push buttons out of the header
             row.label(bpy.app.autoexec_fail_message)
             return
-
-        row.operator("wm.splash", text="", icon='BLENDER', emboss=False)
-        row.label(text=scene.statistics(), translate=False)
+        
+        layout.operator("view3d.game_start", text="Play", icon="PLAY")
+        row = layout.row(align=1)
+        row.operator("wm.splash", text="", icon='BLENDER', emboss=1)
+        row.label(text=scene.statistics(), translate=0)
 
 
 class INFO_MT_editor_menus(Menu):

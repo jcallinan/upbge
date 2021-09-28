@@ -120,8 +120,6 @@ class DOPESHEET_HT_header(Header):
 
         row = layout.row(align=True)
         row.template_header()
-        
-        
         DOPESHEET_MT_editor_menus.draw_collapsible(context, layout)
 
         layout.prop(st, "mode", text="")
@@ -176,7 +174,7 @@ class DOPESHEET_HT_header(Header):
         row.operator("action.paste", text="", icon='PASTEDOWN')
         if st.mode not in ('GPENCIL', 'MASK'):
             row.operator("action.paste", text="", icon='PASTEFLIPDOWN').flipped = True
-        #
+
         row = layout.row(align=True)
         if not scene.use_preview_range:
             row.prop(scene, "frame_start", text="Start")
@@ -189,8 +187,7 @@ class DOPESHEET_HT_header(Header):
             layout.prop(scene, "frame_float", text="")
         else:
             layout.prop(scene, "frame_current", text="Frame")
-            
-            
+               
         row = layout.row(align=True)
         row.operator("screen.frame_jump", text="", icon='REW').end = False
         if not screen.is_animation_playing:
@@ -203,7 +200,6 @@ class DOPESHEET_HT_header(Header):
             sub = row.row(align=True)
             sub.operator("screen.animation_play", text="", icon='PAUSE')
         row.operator("screen.frame_jump", text="", icon='FF').end = True
-        #
 
 
 class DOPESHEET_MT_editor_menus(Menu):

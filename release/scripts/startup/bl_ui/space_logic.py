@@ -25,11 +25,9 @@ class LOGIC_PT_components(bpy.types.Panel):
     bl_region_type = 'UI'
     bl_label = 'Components'
     bpy.types.Scene.icons_Show = bpy.props.BoolProperty(default = False, name="Component Icons",description="Show/Hide Component Icons")
-    
     @classmethod
     def poll(cls, context):
         ob = context.active_object
-        
         return ob and ob.name
 
     def draw(self, context):
@@ -147,7 +145,6 @@ class LOGIC_PT_properties(Panel):
         props.name = ""
 
         for i, prop in enumerate(game.properties):
-
             if is_font and i == prop_index or is_font and i == prop_indexR:
                 continue
 
