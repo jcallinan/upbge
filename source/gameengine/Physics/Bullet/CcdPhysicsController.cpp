@@ -59,7 +59,7 @@ float gAngularSleepingTreshold;
 
 CcdCharacter::CcdCharacter(CcdPhysicsController *ctrl, btMotionState *motionState,
                            btPairCachingGhostObject *ghost, btConvexShape *shape, float stepHeight)
-	:btKinematicCharacterController(ghost, shape, stepHeight, 2),
+	:btKinematicCharacterController(ghost, shape, stepHeight),
 	m_ctrl(ctrl),
 	m_motionState(motionState),
 	m_jumps(0),
