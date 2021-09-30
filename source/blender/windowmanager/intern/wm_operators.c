@@ -1500,7 +1500,7 @@ static uiBlock *wm_block_create_splash(bContext *C, ARegion *ar, void *UNUSED(ar
 	uiItemL(col, IFACE_("Info:"), ICON_HELP);
 
 	uiItemStringO(col, IFACE_("UPBGE - Website"), ICON_URL, "WM_OT_url_open", "url", "http://https://upbge.org");
-	uiItemStringO(col, IFACE_("UPBGE - Python API Reference"), ICON_URL, "WM_OT_url_open", "url", url);
+	uiItemStringO(col, IFACE_("UPBGE - Python API Reference"), ICON_URL, "WM_OT_url_open", "url", "https://upbge.org/manual_api_0.2.5/");
 
 	uiItemL(col, "", ICON_NONE);
 
