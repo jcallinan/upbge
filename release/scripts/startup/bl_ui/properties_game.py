@@ -42,20 +42,28 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
         ob = context.active_object
         game = ob.game
         soft = ob.game.soft_body
-
-        layout.prop(game, "physics_type")
-        layout.separator()
-
+        
         physics_type = game.physics_type
+        iconType = "X"
+        if physics_type == "CHARACTER": iconType = "POSE_HLT"
+        elif physics_type == "DYNAMIC": iconType = "VIEW3D"
+        elif physics_type == "STATIC": iconType = "VIEW3D"
+        elif physics_type == "RIGID_BODY": iconType = "VIEW3D"
+        elif physics_type == "SOFT_BODY": iconType = "SNAP_VOLUME"
+        elif physics_type == "OCCLUDER": iconType = "RESTRICT_RENDER_ON"
+        elif physics_type == "SENSOR": iconType = "RESTRICT_VIEW_OFF"
+        elif physics_type == "NAVMESH": iconType = "GHOST_ENABLED"
+        layout.prop(game, "physics_type", icon=iconType)
+        layout.separator()
 
         if physics_type == 'CHARACTER':
             layout.prop(game, "use_actor")
             layout.prop(ob, "hide_render", text="Invisible")  # out of place but useful
-
-            layout.separator()
-
+            
+            # layout.separator()
+            layout.label(text="Character Attributes:", icon="OUTLINER_OB_ARMATURE")
             split = layout.split()
-
+            
             col = split.column()
             col.prop(game, "step_height", slider=True)
             col.prop(game, "fall_speed")
@@ -63,6 +71,7 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
             col = split.column()
             col.prop(game, "jump_speed")
             col.prop(game, "jump_max")
+            col.prop(game, "radius")
 
         elif physics_type in {'DYNAMIC', 'RIGID_BODY'}:
             split = layout.split()
@@ -82,19 +91,21 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
             split = layout.split()
 
             col = split.column()
-            col.label(text="Attributes:")
+            if physics_type == "DYNAMIC":   col.label(text="Dynamic Attributes:", icon="VIEW3D")
+            else: col.label(text="Rigid Body Attributes:", icon="VIEW3D")
+            
             col.prop(game, "mass")
             col.prop(game, "radius")
             col.prop(game, "form_factor")
-            col.prop(game, "elasticity", slider=True)
+            col.prop(game, "elasticity", slider=1)
 
-            col.label(text="Linear Velocity:")
-            sub = col.column(align=True)
+            col.label(text="Linear Velocity:", icon="FORCE_HARMONIC")
+            sub = col.column(align=1)
             sub.prop(game, "velocity_min", text="Minimum")
             sub.prop(game, "velocity_max", text="Maximum")
 
             col = split.column()
-            col.label(text="Friction:")
+            col.label(text="Friction:", icon="HAIR")
             col.prop(game, "friction")
             col.prop(game, "rolling_friction")
             col.separator()
@@ -107,13 +118,13 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
 
             split = layout.split()
             col = split.column()
-            col.label(text="Angular velocity:")
+            col.label(text="Angular velocity:", icon="FORCE_MAGNETIC")
             sub = col.column(align=True)
             sub.prop(game, "angular_velocity_min", text="Minimum")
             sub.prop(game, "angular_velocity_max", text="Maximum")
 
             col = split.column()
-            col.label(text="Damping:")
+            col.label(text="Damping:", icon="META_CUBE")
             sub = col.column(align=True)
             sub.prop(game, "damping", text="Translation", slider=True)
             sub.prop(game, "rotation_damping", text="Rotation", slider=True)
@@ -122,7 +133,7 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
 
             col = layout.column()
 
-            col.label(text="Lock Translation:")
+            col.label(text="Lock Translation:", icon="LINKED")
             row = col.row()
             row.prop(game, "lock_location_x", text="X")
             row.prop(game, "lock_location_y", text="Y")
@@ -131,7 +142,7 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
         if physics_type == 'RIGID_BODY':
             col = layout.column()
 
-            col.label(text="Lock Rotation:")
+            col.label(text="Lock Rotation:", icon="LINKED")
             row = col.row()
             row.prop(game, "lock_rotation_x", text="X")
             row.prop(game, "lock_rotation_y", text="Y")
@@ -148,7 +159,7 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
             split = layout.split()
 
             col = split.column()
-            col.label(text="General Attributes:")
+            col.label(text="General Attributes:", icon="SNAP_VOLUME")
             col.prop(game, "mass")
             # disabled in the code
             # col.prop(soft, "weld_threshold")
@@ -169,20 +180,20 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
             sub.active = soft.use_shape_match
             sub.prop(soft, "shape_threshold", slider=True)
 
-            col.label(text="Solver Iterations:")
+            col.label(text="Solver Iterations:", icon="SNAP_FACE")
             col.prop(soft, "position_solver_iterations", text="Position Solver")
             col.prop(soft, "velocity_solver_iterations", text="Velocity Solver")
             col.prop(soft, "cluster_solver_iterations", text="Cluster Solver")
             col.prop(soft, "drift_solver_iterations", text="Drift Solver")
 
             col = split.column()
-            col.label(text="Hardness:")
+            col.label(text="Hardness:", icon="OUTLINER_OB_FORCE_FIELD")
             col.prop(soft, "kchr", text="Rigid Contacts", slider=True)
             col.prop(soft, "kkhr", text="Kinetic Contacts", slider=True)
             col.prop(soft, "kshr", text="Soft Contacts", slider=True)
             col.prop(soft, "kahr", text="Anchors", slider=True)
 
-            col.label(text="Cluster Collision:")
+            col.label(text="Cluster Collision:", icon="SNAP_VOLUME")
             col.prop(soft, "use_cluster_rigid_to_softbody")
             col.prop(soft, "use_cluster_soft_to_softbody")
             sub = col.column()
@@ -198,12 +209,12 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
             split = layout.split()
 
             col = split.column()
-            col.label(text="Volume:")
+            col.label(text="Volume:", icon="META_BALL")
             col.prop(soft, "kpr", text="Pressure Coefficient")
             col.prop(soft, "kvc", text="Volume Conservation")
 
             col = split.column()
-            col.label(text="Aerodynamics:")
+            col.label(text="Aerodynamics:", icon="FORCE_DRAG")
             col.prop(soft, "kdg", text="Drag Coefficient")
             col.prop(soft, "klf", text="Lift Coefficient")
 
@@ -218,10 +229,10 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
             split = layout.split()
 
             col = split.column()
-            col.label(text="Attributes:")
+            col.label(text="Static Attributes:", icon="VIEW3D")
             col.prop(game, "radius")
             col.prop(game, "elasticity", slider=True)
-            col.label(text="Friction:")
+            col.label(text="Friction:", icon="HAIR")
             col.prop(game, "friction")
             col.prop(game, "rolling_friction")
 
@@ -235,6 +246,8 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
         elif physics_type == 'SENSOR':
             col = layout.column()
             col.prop(game, "use_actor", text="Detect Actors")
+            col.label(text="Sensor Attributes:")
+            col.prop(game, "radius")
             col.prop(ob, "hide_render", text="Invisible")
 
         elif physics_type in {'INVISIBLE', 'NO_COLLISION', 'OCCLUDER'}:
@@ -251,7 +264,7 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
 
         if physics_type in {"STATIC", "DYNAMIC", "RIGID_BODY"}:
             row = layout.row()
-            row.label(text="Force Field:")
+            row.label(text="Force Field:", icon="FORCE_FORCE")
 
             row = layout.row()
             row.prop(game, "fh_force")
@@ -289,11 +302,11 @@ class PHYSICS_PT_game_collision_bounds(PhysicsButtonsPanel, Panel):
         col.prop(game, "collision_bounds_type", text="Bounds")
 
         row = col.row()
-        row.prop(game, "collision_margin", text="Margin", slider=True)
+        row.prop(game, "collision_margin", text="Margin", slider=1)
 
         sub = row.row()
         sub.active = game.physics_type not in {'SOFT_BODY', 'CHARACTER'}
-        sub.prop(game, "use_collision_compound", text="Compound")
+        sub.prop(game, "use_collision_compound", text="Children Compound")
 
         layout.separator()
         split = layout.split()
@@ -354,7 +367,7 @@ class RENDER_PT_embedded(RenderButtonsPanel, Panel):
         row = layout.row()
         row.operator("view3d.game_start", text="Start")
         row = layout.row()
-        row.label(text="Resolution:")
+        row.label(text="Resolution:", icon="SCENE")
         row = layout.row(align=True)
         row.prop(rd, "resolution_x", slider=False, text="X")
         row.prop(rd, "resolution_y", slider=False, text="Y")
@@ -374,7 +387,7 @@ class RENDER_PT_game_player(RenderButtonsPanel, Panel):
         row = layout.row()
         row.operator("wm.blenderplayer_start", text="Start")
         row = layout.row()
-        row.label(text="Resolution:")
+        row.label(text="Resolution:", icon="SCENE")
         row = layout.row(align=True)
         row.active = not_osx or not gs.show_fullscreen
         row.prop(gs, "resolution_x", slider=False, text="X")
@@ -426,14 +439,14 @@ class RENDER_PT_game_shading(RenderButtonsPanel, Panel):
         split = layout.split()
 
         col = split.column()
-        col.prop(gs, "use_glsl_lights", text="Lights")
-        col.prop(gs, "use_glsl_shaders", text="Shaders")
-        col.prop(gs, "use_glsl_shadows", text="Shadows")
-        col.prop(gs, "use_glsl_environment_lighting", text="Environment Lighting")
+        col.prop(gs, "use_glsl_lights", text="Lights", icon="LAMP_SPOT")
+        col.prop(gs, "use_glsl_shaders", text="Shaders", icon="LAMP_AREA")
+        col.prop(gs, "use_glsl_shadows", text="Shadows", icon="SNAP_FACE")
+        col.prop(gs, "use_glsl_environment_lighting", text="Environment Lighting", icon="SNAP_VOLUME")
         col = split.column()
-        col.prop(gs, "use_glsl_ramps", text="Ramps")
-        col.prop(gs, "use_glsl_nodes", text="Nodes")
-        col.prop(gs, "use_glsl_extra_textures", text="Extra Textures")
+        col.prop(gs, "use_glsl_ramps", text="Ramps", icon="IPO_BEZIER")
+        col.prop(gs, "use_glsl_nodes", text="Nodes", icon="NODETREE")
+        col.prop(gs, "use_glsl_extra_textures", text="Extra Textures", icon="ASSET_MANAGER")
 
 
 class RENDER_PT_game_system(RenderButtonsPanel, Panel):
@@ -451,13 +464,13 @@ class RENDER_PT_game_system(RenderButtonsPanel, Panel):
         col.prop(gs, "use_deprecation_warnings")
 
         col = split.column()
-        col.prop(gs, "vsync")
-        col.prop(gs, "samples")
-        col.prop(gs, "hdr")
+        col.prop(gs, "vsync", icon="RENDER_STILL")
+        col.prop(gs, "samples", icon="RENDER_STILL")
+        col.prop(gs, "hdr", icon="RENDER_STILL")
 
         row = layout.row()
         col = row.column()
-        col.label("Exit Key:")
+        col.label("Game Exit Key:", icon="BLENDER")
         col.prop(gs, "exit_key", text="", event=True)
 
 class RENDER_UL_attachments(UIList):
@@ -574,7 +587,7 @@ class SCENE_PT_game_physics(SceneButtonsPanel, Panel):
 
         layout.prop(gs, "physics_engine", text="Engine")
         if gs.physics_engine != 'NONE':
-            layout.prop(gs, "physics_solver")
+            layout.prop(gs, "physics_solver", icon="PHYSICS")
             layout.prop(gs, "physics_gravity", text="Gravity")
 
             split = layout.split()

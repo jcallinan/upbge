@@ -268,7 +268,7 @@ class MATERIAL_PT_diffuse(MaterialButtonsPanel, Panel):
 
         col = split.column()
         col.active = (not mat.use_shadeless)
-        col.prop(mat, "diffuse_shader", text="")
+        col.prop(mat, "diffuse_shader", text="", icon="BRUSH_TEXFILL")
         col.prop(mat, "use_diffuse_ramp", text="Ramp")
 
         col = layout.column()
@@ -328,7 +328,7 @@ class MATERIAL_PT_specular(MaterialButtonsPanel, Panel):
         col.prop(mat, "specular_intensity", text="Intensity")
 
         col = split.column()
-        col.prop(mat, "specular_shader", text="")
+        col.prop(mat, "specular_shader", text="", icon="BRUSH_SOFTEN")
         col.prop(mat, "use_specular_ramp", text="Ramp")
 
         col = layout.column()
