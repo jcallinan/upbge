@@ -232,9 +232,10 @@ typedef struct Object {
 	float fall_speed;
 	float max_slope;
 	float smooth_movement;
+	float jump_direction[3];
 	int pad5;
 	unsigned char max_jumps;
-	char pad2[7];
+	char pad2[3];
 
 	/** Collision mask settings */
 	unsigned short col_group, col_mask;

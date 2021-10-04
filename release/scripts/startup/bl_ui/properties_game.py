@@ -73,6 +73,7 @@ class PHYSICS_PT_game_physics(PhysicsButtonsPanel, Panel):
             col.prop(game, "jump_speed")
             col.prop(game, "jump_max")
             col.prop(game, "radius")
+            col.prop(game, "jump_direction")
 
         elif physics_type in {'DYNAMIC', 'RIGID_BODY'}:
             split = layout.split()

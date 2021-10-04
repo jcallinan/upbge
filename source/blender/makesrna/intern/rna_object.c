@@ -1838,6 +1838,12 @@ static void rna_def_object_game_settings(BlenderRNA *brna)
 	RNA_def_property_float_default(prop, 0);
 	RNA_def_property_ui_text(prop, "Smooth Movement", "Smooth character movement");
 
+	prop = RNA_def_property(srna, "jump_direction", PROP_FLOAT, PROP_XYZ);
+	RNA_def_property_float_sdna(prop, NULL, "jump_direction");
+	RNA_def_property_range(prop, -1.0f, 1.0f);
+	RNA_def_property_float_default(prop, 0);
+	RNA_def_property_ui_text(prop, "Jump Direction", "Character jump direction");
+
 	/* Collision Masks */
 	prop = RNA_def_property(srna, "collision_group", PROP_BOOLEAN, PROP_LAYER_MEMBER);
 	RNA_def_property_boolean_sdna(prop, NULL, "col_group", 1);

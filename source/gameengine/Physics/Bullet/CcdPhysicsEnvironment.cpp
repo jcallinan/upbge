@@ -2756,6 +2756,10 @@ void CcdPhysicsEnvironment::ConvertObject(BL_SceneConverter& converter, KX_GameO
 	ci.m_maxSlope = isbulletchar ? blenderobject->max_slope : 0.0f;
 	ci.m_maxJumps = isbulletchar ? blenderobject->max_jumps : 0;
 	ci.m_smoothMovement = isbulletchar ? blenderobject->smooth_movement : 0;
+	ci.m_jumpAxis = btVector3(
+							blenderobject->jump_direction[0],
+							blenderobject->jump_direction[1],
+							blenderobject->jump_direction[2]);
 
 	//mmm, for now, take this for the size of the dynamicobject
 	// Blender uses inertia for radius of dynamic object
