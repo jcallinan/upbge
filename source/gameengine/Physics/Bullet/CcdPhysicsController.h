@@ -464,6 +464,8 @@ public:
 	virtual void jump();
 
 	const btVector3& getWalkDirection();
+	const btVector3& getJumpDirection();
+	const float getSmoothMovement();
 
 	void SetVelocity(const btVector3& vel, float time, bool local);
 
@@ -507,6 +509,26 @@ public:
 	virtual mt::vec3 GetWalkDirection()
 	{
 		return ToMt(getWalkDirection());
+	}
+
+	virtual void SetJumpDirection(const mt::vec3& dir)
+	{
+		setJumpDirection(ToBullet(dir));
+	}
+
+	virtual mt::vec3 GetJumpDirection()
+	{
+		return ToMt(getJumpDirection());
+	}
+
+	virtual void SetSmoothMovement(float smoothMovement)
+	{
+		setSmoothMovement(smoothMovement);
+	}
+
+	virtual const float GetSmoothMovement()
+	{
+		return getSmoothMovement();
 	}
 
 	virtual float GetFallSpeed() const;

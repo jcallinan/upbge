@@ -77,6 +77,8 @@ PyAttributeDef KX_CharacterWrapper::Attributes[] = {
 	EXP_PYATTRIBUTE_RO_FUNCTION("jumpCount", KX_CharacterWrapper, pyattr_get_jump_count),
 	EXP_PYATTRIBUTE_RW_FUNCTION("jumpSpeed", KX_CharacterWrapper, pyattr_get_jumpSpeed, pyattr_set_jumpSpeed),
 	EXP_PYATTRIBUTE_RW_FUNCTION("walkDirection", KX_CharacterWrapper, pyattr_get_walk_dir, pyattr_set_walk_dir),
+	EXP_PYATTRIBUTE_RW_FUNCTION("jumpDirection", KX_CharacterWrapper, pyattr_get_jump_dir, pyattr_set_jump_dir),
+	EXP_PYATTRIBUTE_RW_FUNCTION("smoothMovement", KX_CharacterWrapper, pyattr_get_smoothMovement, pyattr_set_smoothMovement),
 	EXP_PYATTRIBUTE_NULL    //Sentinel
 };
 
@@ -105,6 +107,27 @@ int KX_CharacterWrapper::pyattr_set_gravity(EXP_PyObjectPlus *self_v, const EXP_
 	}
 
 	self->m_character->SetGravity((float)param);
+	return PY_SET_ATTR_SUCCESS;
+}
+
+PyObject* KX_CharacterWrapper::pyattr_get_smoothMovement(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef)
+{
+	KX_CharacterWrapper* self = static_cast<KX_CharacterWrapper*>(self_v);
+
+	return PyFloat_FromDouble(self->m_character->GetSmoothMovement());
+}
+
+int KX_CharacterWrapper::pyattr_set_smoothMovement(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef, PyObject* value)
+{
+	KX_CharacterWrapper* self = static_cast<KX_CharacterWrapper*>(self_v);
+	double param = PyFloat_AsDouble(value);
+
+	if (param == -1) {
+		PyErr_SetString(PyExc_ValueError, "KX_CharacterWrapper.smoothMovement: expected a float");
+		return PY_SET_ATTR_FAIL;
+	}
+
+	self->m_character->SetSmoothMovement((float)param);
 	return PY_SET_ATTR_SUCCESS;
 }
 
@@ -215,6 +238,26 @@ int KX_CharacterWrapper::pyattr_set_walk_dir(EXP_PyObjectPlus *self_v, const EXP
 	}
 
 	self->m_character->SetWalkDirection(dir);
+	return PY_SET_ATTR_SUCCESS;
+}
+
+PyObject* KX_CharacterWrapper::pyattr_get_jump_dir(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef)
+{
+	KX_CharacterWrapper* self = static_cast<KX_CharacterWrapper*>(self_v);
+
+	return PyObjectFrom(self->m_character->GetJumpDirection());
+}
+
+int KX_CharacterWrapper::pyattr_set_jump_dir(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef, PyObject* value)
+{
+	KX_CharacterWrapper* self = static_cast<KX_CharacterWrapper*>(self_v);
+	mt::vec3 dir;
+	if (!PyVecTo(value, dir)) {
+		PyErr_SetString(PyExc_TypeError, "KX_CharacterWrapper.jumpDirection: expected a vector");
+		return PY_SET_ATTR_FAIL;
+	}
+
+	self->m_character->SetJumpDirection(dir);
 	return PY_SET_ATTR_SUCCESS;
 }
 

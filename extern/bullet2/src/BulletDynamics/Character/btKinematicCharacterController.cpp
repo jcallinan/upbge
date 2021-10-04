@@ -138,6 +138,7 @@ btKinematicCharacterController::btKinematicCharacterController(btPairCachingGhos
 	m_jumpAxis.setValue(0.0f, 0.0f, 1.0f);
 	m_addedMargin = 0.02;
 	m_walkDirection.setValue(0.0, 0.0, 0.0);
+	m_smoothMovement = 0;
 	m_AngVel.setValue(0.0, 0.0, 0.0);
 	m_useGhostObjectSweepTest = true;
 	m_turnAngle = btScalar(0.0);
@@ -615,6 +616,23 @@ void btKinematicCharacterController::setWalkDirection(
 	m_normalizedDirection = getNormalizedVector(m_walkDirection);
 }
 
+void btKinematicCharacterController::setJumpDirection(
+	const btVector3& jumpDirection)
+{
+	m_jumpAxis = jumpDirection;
+}
+
+void btKinematicCharacterController::setSmoothMovement(
+	const btScalar smoothMovement)
+{
+	m_smoothMovement = smoothMovement;
+}
+
+btScalar btKinematicCharacterController::getSmoothMovement() const
+{
+	return m_smoothMovement;
+}
+
 void btKinematicCharacterController::setVelocityForTimeInterval(
 	const btVector3& velocity,
 	btScalar timeInterval)
@@ -796,6 +814,10 @@ void btKinematicCharacterController::playerStep(btCollisionWorld* collisionWorld
 	if (m_useWalkDirection)
 	{
 		stepForwardAndStrafe(collisionWorld, m_walkDirection);
+		// UPBGE Smooth Movement
+		if (m_smoothMovement && m_walkDirection) { 
+			setWalkDirection((m_walkDirection * (1.0f - m_smoothMovement)));
+		}
 	}
 	else
 	{

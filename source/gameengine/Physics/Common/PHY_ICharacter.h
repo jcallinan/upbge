@@ -29,6 +29,12 @@ public:
 	virtual void SetWalkDirection(const mt::vec3& dir) = 0;
 	virtual mt::vec3 GetWalkDirection() = 0;
 
+	virtual void SetJumpDirection(const mt::vec3& dir) = 0;
+	virtual mt::vec3 GetJumpDirection() = 0;
+
+	virtual const float GetSmoothMovement() = 0;
+	virtual void SetSmoothMovement(float smoothMovement) = 0;
+
 	virtual float GetFallSpeed() const = 0;
 	virtual void SetFallSpeed(float fallSpeed) = 0;
 

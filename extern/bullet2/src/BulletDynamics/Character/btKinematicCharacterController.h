@@ -51,6 +51,7 @@ protected:
 	btScalar m_maxSlopeRadians;  // Slope angle that is set (used for returning the exact value)
 	btScalar m_maxSlopeCosine;   // Cosine equivalent of m_maxSlopeRadians (calculated once when set, for optimization)
 	btScalar m_gravity;
+	btScalar m_smoothMovement;
 
 	btScalar m_turnAngle;
 
@@ -137,6 +138,9 @@ public:
 	///	of dt.
 	/// This call will reset any velocity set by setVelocityForTimeInterval().
 	virtual void setWalkDirection(const btVector3& walkDirection);
+	virtual void setJumpDirection(const btVector3& jumpDirection);
+	virtual void setSmoothMovement(const btScalar smoothMovement);
+	btScalar getSmoothMovement() const;
 
 	/// Caller provides a velocity with which the character should move for
 	///	the given time period.  After the time period, velocity is reset

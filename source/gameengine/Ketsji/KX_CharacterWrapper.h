@@ -41,6 +41,10 @@ public:
 	static int			pyattr_set_jumpSpeed(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	static PyObject*	pyattr_get_walk_dir(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_walk_dir(EXP_PyObjectPlus *self_v, const EXP_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static PyObject*	pyattr_get_jump_dir(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef);
+	static int			pyattr_set_jump_dir(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef, PyObject* value);
+	static PyObject*	pyattr_get_smoothMovement(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef);
+	static int			pyattr_set_smoothMovement(EXP_PyObjectPlus* self_v, const EXP_PYATTRIBUTE_DEF* attrdef, PyObject* value);
 #endif // WITH_PYTHON
 
 private:

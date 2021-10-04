@@ -113,6 +113,16 @@ const btVector3& CcdCharacter::getWalkDirection()
 	return m_walkDirection;
 }
 
+const btVector3& CcdCharacter::getJumpDirection()
+{
+	return m_jumpAxis;
+}
+
+const float CcdCharacter::getSmoothMovement()
+{
+	return m_smoothMovement;
+}
+
 float CcdCharacter::GetFallSpeed() const
 {
 	return m_fallSpeed;
