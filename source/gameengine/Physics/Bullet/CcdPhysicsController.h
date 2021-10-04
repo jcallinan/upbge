@@ -313,6 +313,7 @@ struct CcdConstructionInfo {
 	float m_fallSpeed;
 	float m_maxSlope;
 	unsigned char m_maxJumps;
+	float m_smoothMovement;
 
 	int m_gamesoftFlag;
 	unsigned short m_softBendingDistance;

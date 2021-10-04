@@ -649,6 +649,7 @@ void BKE_object_init(Object *ob)
 	ob->jump_speed = 10.0f;
 	ob->fall_speed = 55.0f;
 	ob->max_jumps = 1;
+	ob->smooth_movement = 0;
 	ob->max_slope = M_PI_2;
 	ob->col_group = 0x01;
 	ob->col_mask = 0xffff;

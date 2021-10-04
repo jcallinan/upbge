@@ -1832,6 +1832,12 @@ static void rna_def_object_game_settings(BlenderRNA *brna)
 	RNA_def_property_ui_text(prop, "Max Jumps",
 	                         "The maximum number of jumps the character can make before it hits the ground");
 
+	prop = RNA_def_property(srna, "smooth_movement", PROP_FLOAT, PROP_NONE);
+	RNA_def_property_float_sdna(prop, NULL, "smooth_movement");
+	RNA_def_property_range(prop, 0, 1.0f);
+	RNA_def_property_float_default(prop, 0);
+	RNA_def_property_ui_text(prop, "Smooth Movement", "Smooth character movement");
+
 	/* Collision Masks */
 	prop = RNA_def_property(srna, "collision_group", PROP_BOOLEAN, PROP_LAYER_MEMBER);
 	RNA_def_property_boolean_sdna(prop, NULL, "col_group", 1);
