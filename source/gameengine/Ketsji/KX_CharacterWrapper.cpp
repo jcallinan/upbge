@@ -126,6 +126,10 @@ int KX_CharacterWrapper::pyattr_set_smoothMovement(EXP_PyObjectPlus* self_v, con
 		PyErr_SetString(PyExc_ValueError, "KX_CharacterWrapper.smoothMovement: expected a float");
 		return PY_SET_ATTR_FAIL;
 	}
+	else if ((float)param > 1) {
+		PyErr_SetString(PyExc_ValueError, "KX_CharacterWrapper.smoothMovement: only float 0.0 - 1.0");
+		return PY_SET_ATTR_FAIL;
+	}
 
 	self->m_character->SetSmoothMovement((float)param);
 	return PY_SET_ATTR_SUCCESS;
