@@ -816,7 +816,7 @@ void btKinematicCharacterController::playerStep(btCollisionWorld* collisionWorld
 		stepForwardAndStrafe(collisionWorld, m_walkDirection);
 		// UPBGE Smooth Movement
 		if (m_smoothMovement && m_walkDirection) { 
-			setWalkDirection((m_walkDirection * (1.0f - m_smoothMovement)));
+			setWalkDirection((m_walkDirection * (0.89f + (m_smoothMovement * 0.1f))));
 		}
 	}
 	else
