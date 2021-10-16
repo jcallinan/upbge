@@ -293,6 +293,26 @@ void BL_ConvertSensors(struct Object *blenderobject,
 								keytype = SCA_MouseSensor::KX_MOUSESENSORMODE_RIGHTBUTTON;
 								break;
 							}
+							case BL_SENS_MOUSE_LEFTTHUMBMOUSE:
+							{
+								keytype = SCA_MouseSensor::KX_MOUSESENSORMODE_LEFTTHUMBMOUSE;
+								break;
+							}
+							case BL_SENS_MOUSE_RIGHTTHUMBMOUSE:
+							{
+								keytype = SCA_MouseSensor::KX_MOUSESENSORMODE_RIGHTTHUMBMOUSE;
+								break;
+							}
+							case BL_SENS_MOUSE_BUTTON6:
+							{
+								keytype = SCA_MouseSensor::KX_MOUSESENSORMODE_BUTTON6;
+								break;
+							}
+							case BL_SENS_MOUSE_BUTTON7:
+							{
+								keytype = SCA_MouseSensor::KX_MOUSESENSORMODE_BUTTON7;
+								break;
+							}
 							case BL_SENS_MOUSE_WHEEL_UP:
 							{
 								keytype = SCA_MouseSensor::KX_MOUSESENSORMODE_WHEELUP;
