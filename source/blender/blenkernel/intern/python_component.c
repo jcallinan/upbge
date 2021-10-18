@@ -345,12 +345,11 @@ static void create_properties(PythonComponent *pycomp, PyObject *cls)
 					}
 					break;
 				}
-				
-				found = true;
 				if (!strcmp(name, "C_Icons")) { // Make an exception to update C_Icons.
 					found = false;
 				}
 				else {
+					found = true;
 					/* We found a coresponding property in the old component, so the new one
 					 * is released, the old property is removed from the original list and
 					 * added to the new list.
