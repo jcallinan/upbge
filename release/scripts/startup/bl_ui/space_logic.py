@@ -60,8 +60,7 @@ class LOGIC_PT_components(bpy.types.Panel):
             row.operator("logic.python_component_move_down", icon="TRIA_DOWN", text="").index = i
             row = row.row(align=0)
             row.operator("logic.python_component_remove", text="", icon='X').index = i
-  
-            if c.show_expanded and len(c.properties) > 1 and c.properties[0] != "C_Icons":
+            if c.show_expanded and len(c.properties) > 0:
                 box = box.box()
                 iconval = 1
                 for prop in c.properties:
