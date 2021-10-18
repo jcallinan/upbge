@@ -98,6 +98,10 @@ Mouse Keys
 .. data:: RIGHTMOUSE
 .. data:: WHEELUPMOUSE
 .. data:: WHEELDOWNMOUSE
+.. data:: LEFTTHUMBMOUSE
+.. data:: RIGHTTHUMBMOUSE
+.. data:: BUTTON6MOUSE
+.. data:: BUTTON7MOUSE
 .. data:: MOUSEX
 .. data:: MOUSEY
 
