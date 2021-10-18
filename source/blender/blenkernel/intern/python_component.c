@@ -345,17 +345,23 @@ static void create_properties(PythonComponent *pycomp, PyObject *cls)
 					}
 					break;
 				}
-				/* We found a coresponding property in the old component, so the new one
-				 * is released, the old property is removed from the original list and
-				 * added to the new list.
-				 */
-				free_property(cprop);
-				/* The exisiting property is removed to allow at the end free properties
-				 * that are no longuer used.
-				 */
-				BLI_remlink(&pycomp->properties, propit);
-				BLI_addtail(&properties, propit);
+				
 				found = true;
+				if (!strcmp(name, "C_Icons")) { // Make an exception to update C_Icons.
+					found = false;
+				}
+				else {
+					/* We found a coresponding property in the old component, so the new one
+					 * is released, the old property is removed from the original list and
+					 * added to the new list.
+					 */
+					free_property(cprop);
+					/* The exisiting property is removed to allow at the end free properties
+					 * that are no longuer used.
+					 */
+					BLI_remlink(&pycomp->properties, propit);
+					BLI_addtail(&properties, propit);
+				}
 				break;
 			}
 		}

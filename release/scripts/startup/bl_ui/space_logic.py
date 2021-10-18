@@ -24,7 +24,6 @@ class LOGIC_PT_components(bpy.types.Panel):
     bl_space_type = 'LOGIC_EDITOR'
     bl_region_type = 'UI'
     bl_label = 'Components'
-    bpy.types.Scene.icons_Show = bpy.props.BoolProperty(default = False, name="Component Icons",description="Show/Hide Component Icons")
     @classmethod
     def poll(cls, context):
         ob = context.active_object
@@ -54,11 +53,6 @@ class LOGIC_PT_components(bpy.types.Panel):
                     row.label(c.name)
             else:
                 row.label(c.name)
-            for prop in c.properties:
-                    if prop.name == "C_Icons":
-                        if scene.icons_Show:
-                            row.prop(prop,"value", text="")
-                        row.prop(scene, "icons_Show", text="", icon="INFO", toggle=True)
             
             row.operator("logic.python_component_reload", icon="RECOVER_LAST", text="").index = i
             # row.separator()
@@ -67,7 +61,7 @@ class LOGIC_PT_components(bpy.types.Panel):
             row = row.row(align=0)
             row.operator("logic.python_component_remove", text="", icon='X').index = i
   
-            if c.show_expanded and len(c.properties) > 0:
+            if c.show_expanded and len(c.properties) > 1 and c.properties[0] != "C_Icons":
                 box = box.box()
                 iconval = 1
                 for prop in c.properties:
