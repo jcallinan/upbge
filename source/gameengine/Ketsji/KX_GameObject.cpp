@@ -1609,9 +1609,10 @@ void KX_GameObject::UpdateComponents()
 	if (!m_components) {
 		return;
 	}
-
-	for (KX_PythonComponent *comp : m_components) {
-		comp->Update();
+	if (!m_suspended) {
+		for (KX_PythonComponent* comp : m_components) {
+			comp->Update();
+		}
 	}
 
 #endif // WITH_PYTHON
